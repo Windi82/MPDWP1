@@ -3,7 +3,10 @@ title: "Latihan MPDW Pertemuan 5"
 author: "Windi Gunawan"
 NIm: "G1401211082" 
 date: "2023-09-26"
-output: html_document
+output: 
+  html_document:
+    toc: 6
+    toc_float: yes
 ---
 
 # Memanggil Packages yang digunakan
@@ -26,7 +29,7 @@ library(MASS)
 
 ```{r}
 data <- read.csv("https://raw.githubusercontent.com/Windi82/MPDWP1/main/Pertemuan%202/bajajfinance.csv")
-data
+head(data,10)
 str(data)
 ```
 

@@ -1,6 +1,6 @@
 ---
 title: "Data Populasi USA"
-author: "G1401211038_Dhiya Khalishah Tsany Suwarso"
+author: "Kelompok 1"
 date: "2023-10-30"
 output: html_document
 ---

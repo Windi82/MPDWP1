@@ -1,6 +1,6 @@
 ---
 title: "Pertemuan 3 - Regresi dengan Peubah Lag"
-author: "G1401211043_Yogi Nur Hamid"
+author: "G1401211082_Windi Gunawan"
 output:
   html_document:
     theme: yeti
@@ -133,10 +133,6 @@ Model Koyck merupakan peramalan model yang baik dengan nilai MAPE yang berkisar 
 
 Pemodelan model Regression with Distributed Lag dengan `R` dapat menggunakan `dLagM::dlm()` . Fungsi umum dari `dlm` adalah sebagai berikut.
 
-```{r, eval=FALSE, error=FALSE}
-dlm(formula , data , x , y , q , remove )
-```
-
 Fungsi `dlm()` akan menerapkan model lag terdistribusi dengan satu atau lebih prediktor. Nilai `x` dan `y` tidak perlu sebagai objek *time series* (`ts`). $q$ adalah integer yang mewakili panjang *lag* yang terbatas.
 
 ```{r}
@@ -172,7 +168,7 @@ forecast(model = model.dlm, x=test$Xt, h=8)
 #Akurasi DLM
 ```{r}
 #mape data testing
-mape.dlm <- MAPE(fore.dlm$forecasts, test$Yt)
+mape.dlm <- MAPE(model.dlm$forecasts, test$Yt)
 
 #akurasi data training
 mape_train <- dLagM::GoF(model.dlm)["MAPE"]
@@ -232,7 +228,7 @@ forecast(model = model.ardl, x=test$Xt, h=8)
 #Akurasi ARDL
 ```{r}
 # mape akurasi testing
-mape.ardl <- MAPE(fore.ardl$forecasts, test$Yt) #data testing
+mape.ardl <- MAPE(model.ardl$forecasts, test$Yt) #data testing
 
 # mape akurasi data training
 mape_train <- GoF(model.ardl)["MAPE"]
@@ -257,10 +253,10 @@ par(mfrow=c(1,1))
 plot(test$Xt, test$Yt, type="b", col="black", ylim=c(110,700))
 points(test$Xt, fore.koyck$forecasts,col="red")
 lines(test$Xt, fore.koyck$forecasts,col="red")
-points(test$Xt, fore.dlm$forecasts,col="blue")
-lines(test$Xt, fore.dlm$forecasts,col="blue")
-points(test$Xt, fore.ardl$forecasts,col="green")
-lines(test$Xt, fore.ardl$forecasts,col="green")
+points(test$Xt, model.dlm$forecasts,col="blue")
+lines(test$Xt, model.dlm$forecasts,col="blue")
+points(test$Xt, model.ardl$forecasts,col="green")
+lines(test$Xt, model.ardl$forecasts,col="green")
 legend("topleft",c("Aktual", "koyck","DLM", "ARDL"), lty=1, col=c("black","red","blue","green"), cex=0.8)
 ```
 Berdasarkan plot tersebut, terlihat bahwa plot yang paling mendekati data aktualnya adalah Model Koyck, walaupun masih sangat jauh sehingga dapat disimpulkan model terbaik dalam kasus ini adalah model regresi koyck. Hal ini terjadi karena data testing hanya sejumlah 8 sehingga untuk mendapatkan model yang lebih akurat data testing harus ditambahkan.
